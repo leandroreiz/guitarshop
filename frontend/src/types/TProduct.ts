@@ -1,4 +1,4 @@
-type ProductType = {
+type TProduct = {
   _id: string;
   name: string;
   image: string;
@@ -11,4 +11,4 @@ type ProductType = {
   numReviews: number;
 };
 
-export default ProductType;
+export default TProduct;

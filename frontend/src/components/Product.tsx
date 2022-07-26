@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
-import ProductType from '../types/ProductType';
+import TProduct from '../types/TProduct';
 import Rating from './Rating';
 
 interface ProductProps {
-  product: ProductType;
+  product: TProduct;
 }
 
 const Product: React.FC<ProductProps> = ({ product }) => {

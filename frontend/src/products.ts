@@ -1,6 +1,6 @@
-import ProductType from './types/ProductType';
+import TProduct from './types/TProduct';
 
-const products: ProductType[] = [
+const products: TProduct[] = [
   {
     _id: '1',
     name: 'Fender Custom 56 Strat NOS FR GH',
