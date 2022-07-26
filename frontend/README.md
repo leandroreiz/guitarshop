@@ -9,6 +9,9 @@ This will be a full-stack application made with the purpose of applyintg everyth
 - Frontend
   - React
   - TypeScript
+  - Extra packs
+    - React-Bootstrap
+    - React-FontAwesome Components Using Dynamic Icon Importing
 - Backend
   - Node
   - Express
