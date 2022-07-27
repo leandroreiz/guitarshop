@@ -1,7 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import connectDB from '../config/db';
-import products from './data/products';
+import connectDB from './config/db';
+import productRoutes from './routes/productRoutes';
 
 dotenv.config();
 
@@ -12,17 +12,10 @@ const port = process.env.PORT || 8000;
 const environment = process.env.NODE_ENV;
 
 app.get('/', (req, res) => {
-  res.send('API is running!');
+  res.send('The API is listening for requests...');
 });
 
-app.get('/api/v1/products', (req, res) => {
-  res.json(products);
-});
-
-app.get('/api/v1/products/:id', (req, res) => {
-  const product = products.find((product) => product._id === req.params.id);
-  res.json(product);
-});
+app.use('/api/v1/products', productRoutes);
 
 app.listen(port, () =>
   console.log(`Server running in ${environment} mode on port ${port}`)

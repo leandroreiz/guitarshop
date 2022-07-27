@@ -1,8 +1,7 @@
 import TProduct from '../../../frontend/src/types/TProduct';
 
-const products: TProduct[] = [
+const products: Array<TProduct> = [
   {
-    _id: '1',
     name: 'Fender Custom 56 Strat NOS FR GH',
     image: '/images/fender56.jpg',
     description:
@@ -15,7 +14,6 @@ const products: TProduct[] = [
     numReviews: 12,
   },
   {
-    _id: '2',
     name: 'ESP LTD James Hetfield Snakebyte',
     image: '/images/esphetfield.jpg',
     description:
@@ -28,7 +26,6 @@ const products: TProduct[] = [
     numReviews: 8,
   },
   {
-    _id: '3',
     name: 'Gibson Les Paul Standard 50s',
     image: '/images/gibson50.jpg',
     description:
@@ -41,7 +38,6 @@ const products: TProduct[] = [
     numReviews: 12,
   },
   {
-    _id: '4',
     name: 'Ibanez AZ2204B-BK Prestige - Made in Japan',
     image: '/images/ibanezprestige.jpg',
     description:
@@ -54,7 +50,6 @@ const products: TProduct[] = [
     numReviews: 12,
   },
   {
-    _id: '5',
     name: 'PRS SE Custom 24 Floyd Charcoal Burst',
     image: '/images/prscustom24.jpg',
     description:
@@ -67,7 +62,6 @@ const products: TProduct[] = [
     numReviews: 10,
   },
   {
-    _id: '6',
     name: 'Jackson DKA-R EX - Limited Edition',
     image: '/images/jackson.jpg',
     description:
