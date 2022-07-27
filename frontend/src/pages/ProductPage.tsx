@@ -16,7 +16,7 @@ const ProductPage: React.FC = () => {
     };
 
     fetchProduct();
-  }, []);
+  }, [params]);
 
   return (
     <>
