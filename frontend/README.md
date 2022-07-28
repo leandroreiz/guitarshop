@@ -2,7 +2,7 @@
 
 ## Description
 
-This will be a full-stack application made with the purpose of applyintg everything I've been learning for the last months.
+Full-stack application made with the purpose of applying everything I've been learning for the last months.
 
 ## Tech Stack
 

@@ -4,9 +4,9 @@ import {
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
   PRODUCT_LIST_FAIL,
-} from '../constants/productConstants';
+} from './productActionTypes';
 
-export const productList = () => async (dispatch: AppDispatch) => {
+export const listProducts = () => async (dispatch: AppDispatch) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
 
@@ -14,6 +14,7 @@ export const productList = () => async (dispatch: AppDispatch) => {
 
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error: any) {
+    // @TODO check for correct error type (using type guard)
     dispatch({
       type: PRODUCT_LIST_FAIL,
       payload:
