@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import TUsers from '../../../frontend/src/types/TUsers';
+import TUsers from '../../../common/types/TUsers';
 
 const users: Array<TUsers> = [
   {

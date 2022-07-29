@@ -1,23 +1,17 @@
+import IStore from '../store/IStore';
 import {
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
   PRODUCT_LIST_FAIL,
-  ProductDispatchTypes,
-} from '../actions/productActionTypes';
-import TProduct from '../types/TProduct';
+  TProductAction,
+} from '../actions/TProductAction';
 
-export interface IState {
-  loading: boolean;
-  products?: Array<TProduct>;
-  error?: any;
-}
-
-const initialState: IState = { loading: false, products: [] };
+const initialState: IStore = { loading: false, products: [] };
 
 export const productListReducer = (
-  state: IState = initialState,
-  action: ProductDispatchTypes
-): IState => {
+  state: IStore = initialState,
+  action: TProductAction
+) => {
   switch (action.type) {
     case PRODUCT_LIST_REQUEST:
       return { loading: true };

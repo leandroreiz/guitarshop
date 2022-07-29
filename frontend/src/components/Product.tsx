@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
-import TProduct from '../types/TProduct';
+import TProduct from '../../../common/types/TProduct';
 import Rating from './Rating';
 
-interface ProductProps {
+interface IProductProps {
   product: TProduct;
 }
 
-const Product: React.FC<ProductProps> = ({ product }) => {
+const Product: React.FC<IProductProps> = ({ product }) => {
   return (
     <Card className="my-3 p-3 rounded">
       <Link to={`/product/${product._id}`}>

@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../hooks';
+import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { Row, Col } from 'react-bootstrap';
 import { listProducts } from '../actions/productActions';
-import { RootState } from '../store';
+import { RootState } from '../store/store';
 import Product from '../components/Product';
 
 const Home = () => {

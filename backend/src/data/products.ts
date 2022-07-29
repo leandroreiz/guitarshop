@@ -1,4 +1,4 @@
-import TProduct from '../../../frontend/src/types/TProduct';
+import TProduct from '../../../common/types/TProduct';
 
 const products: Array<TProduct> = [
   {
