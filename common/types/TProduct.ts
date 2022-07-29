@@ -1,6 +1,5 @@
 type TProduct = {
-  // @TODO _id shouldn't be optional
-  _id?: string;
+  _id: string;
   name: string;
   image: string;
   description: string;
