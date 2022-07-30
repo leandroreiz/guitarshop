@@ -9,7 +9,7 @@ import Message from '../common/components/Message';
 const Home = () => {
   const dispatch = useAppDispatch();
   const { isLoading, products, error } = useAppSelector(
-    (state) => state.productsData
+    (state) => state.productsList
   );
 
   // Type Guard
@@ -26,7 +26,7 @@ const Home = () => {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <Message variant="danger" children={errorMessage} />
+        <Message variant="danger" message={errorMessage} />
       ) : (
         <Row>
           {products.map((product) => (
