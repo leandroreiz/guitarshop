@@ -1,6 +1,10 @@
-import TProduct from '../../../common/types/TProduct';
+import type { TProduct } from '../../../frontend/src/features/products/product.types';
 
-const products: Array<TProduct> = [
+interface MockProduct extends Omit<TProduct, '_id'> {
+  _id?: string;
+}
+
+const products: Array<MockProduct> = [
   {
     name: 'Fender Custom 56 Strat NOS FR GH',
     image: '/images/fender56.jpg',

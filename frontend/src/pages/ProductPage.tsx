@@ -2,8 +2,8 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
-import Rating from '../components/Rating';
-import TProduct from '../../../common/types/TProduct';
+import Rating from '../common/components/Rating';
+import type { TProduct } from '../features/products/product.types';
 
 const ProductPage: React.FC = () => {
   const params = useParams();

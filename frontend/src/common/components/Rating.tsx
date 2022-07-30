@@ -1,13 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import type { TRatingProps } from '../../features/reviews/reviews.types';
 
-interface IRatingProps {
-  value: number;
-  text: string;
-  color?: string;
-}
-
-const Rating: React.FC<IRatingProps> = ({ value, text, color }) => {
+const Rating: React.FC<TRatingProps> = ({ value, text, color }) => {
   return (
     <div className="rating">
       <span style={{ color }}>

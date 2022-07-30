@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
-import TUsers from '../../../common/types/TUsers';
+import type { TUser } from '../../../frontend/src/features/users/users.types';
 
-const users: Array<TUsers> = [
+const users: Array<TUser> = [
   {
     name: 'Admin User',
     email: 'admin@guitarshop.com',
