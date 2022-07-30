@@ -6,7 +6,6 @@ const connectDB = async () => {
     console.info(`Database Connected!`);
   } catch (error: unknown) {
     // source: https://kentcdodds.com/blog/get-a-catch-block-error-message-with-typescript
-    // @TODO Error Handler
     let message;
     if (error instanceof Error) message = error.message;
     else message = String(error);

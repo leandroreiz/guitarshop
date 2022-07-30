@@ -1,19 +1,24 @@
 import axios from 'axios';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import type { TProduct } from './product.types';
+import type { TProductState } from './product.types';
 
-export const fetchProducts = createAsyncThunk('api/v1/products', async () => {
-  const { data } = await axios(`/api/v1/products`);
-  return data;
-});
+export const fetchProducts = createAsyncThunk(
+  'products/getAll',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios(`/api/v1/products`);
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
 
-interface ProductState {
-  isLoading: boolean;
-  products: Array<TProduct>;
-  errorMessage?: any;
-}
-
-const initialState: ProductState = { isLoading: false, products: [] };
+const initialState: TProductState = {
+  isLoading: false,
+  products: [],
+  error: '',
+};
 
 export const productSlice = createSlice({
   name: 'products',
@@ -30,7 +35,7 @@ export const productSlice = createSlice({
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.isLoading = false;
-        state.errorMessage = action.payload;
+        state.error = action.payload;
       });
   },
 });

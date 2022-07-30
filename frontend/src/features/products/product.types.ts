@@ -14,3 +14,9 @@ export type TProduct = {
 export type TProductProps = {
   product: TProduct;
 };
+
+export type TProductState = {
+  isLoading: boolean;
+  products: Array<TProduct>;
+  error?: string | unknown;
+};
