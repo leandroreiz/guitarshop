@@ -1,14 +1,26 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
+import {
+  Row,
+  Col,
+  Image,
+  ListGroup,
+  Card,
+  Button,
+  Form,
+} from 'react-bootstrap';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { fetchProduct } from '../features/products/productSlice';
 import Rating from '../common/components/Rating';
 import Loader from '../common/components/Loader';
 import Message from '../common/components/Message';
+import { useNavigate } from 'react-router-dom';
 
 const ProductPage: React.FC = () => {
+  const [quantity, setQuantity] = useState<number>(1);
+
   const params = useParams();
+  const navigate = useNavigate();
 
   const { isLoading, product, error } = useAppSelector(
     (state) => state.productDetails
@@ -19,6 +31,11 @@ const ProductPage: React.FC = () => {
   useEffect(() => {
     dispatch(fetchProduct(params.id!.toString()));
   }, [dispatch, params]);
+
+  // Adding items to cart
+  const addToCartHandler = () => {
+    navigate(`/cart/${params.id}?qty=${quantity}`);
+  };
 
   // Type Guard
   const errorMessage =
@@ -66,6 +83,7 @@ const ProductPage: React.FC = () => {
                     </Col>
                   </Row>
                 </ListGroup.Item>
+
                 <ListGroup.Item>
                   <Row>
                     <Col>Status:</Col>
@@ -74,11 +92,36 @@ const ProductPage: React.FC = () => {
                     </Col>
                   </Row>
                 </ListGroup.Item>
+
+                {product!.countInStock > 0 && (
+                  <ListGroup.Item>
+                    <Row>
+                      <Col>Qty</Col>
+                      <Col>
+                        <Form.Select
+                          aria-label="Select quantity"
+                          value={quantity}
+                          onChange={(evt) => setQuantity(+evt.target.value)}
+                        >
+                          {[...Array(product.countInStock).keys()].map(
+                            (val) => (
+                              <option key={val + 1} value={val + 1}>
+                                {val + 1}
+                              </option>
+                            )
+                          )}
+                        </Form.Select>
+                      </Col>
+                    </Row>
+                  </ListGroup.Item>
+                )}
+
                 <ListGroup.Item>
                   <div className="d-grid">
                     <Button
-                      type="button"
                       disabled={product?.countInStock === 0}
+                      type="button"
+                      onClick={addToCartHandler}
                     >
                       Add To Cart
                     </Button>
