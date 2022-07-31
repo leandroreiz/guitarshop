@@ -19,15 +19,15 @@ const CartPage = () => {
   const cart = useAppSelector((state) => state.cart.cartItems);
   console.log('CART:', cart);
 
-  const id: string = String(params.id);
+  const productId: string = String(params.id);
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const quantity: number = Number(urlParams.get('qty'));
 
   useEffect(() => {
-    dispatch(addToCart({ id, quantity }));
-  }, [id, quantity, dispatch]);
+    dispatch(addToCart({ productId, quantity }));
+  }, [productId, quantity, dispatch]);
 
   return <div>CartPage</div>;
 };

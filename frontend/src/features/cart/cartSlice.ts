@@ -4,7 +4,7 @@ import type { TCart, TCartState } from './cart.types';
 import { AppDispatch } from '../../app/store';
 
 export interface ActionAttributes {
-  id: string;
+  productId: string;
   quantity: number;
 }
 
@@ -12,24 +12,27 @@ export const addToCart = createAsyncThunk<
   TCart,
   ActionAttributes,
   { dispatch: AppDispatch; state: TCartState }
->('cart/addItem', async ({ id, quantity }, { rejectWithValue, getState }) => {
-  try {
-    const { data } = await axios.get(`/api/v1/products/${id}`);
+>(
+  'cart/addItem',
+  async ({ productId, quantity }, { rejectWithValue, getState }) => {
+    try {
+      const { data } = await axios.get(`/api/v1/products/${productId}`);
 
-    localStorage.setItem('cartItems', JSON.stringify(getState().cartItems));
+      localStorage.setItem('cartItems', JSON.stringify(getState().cartItems));
 
-    return {
-      product: data.product,
-      name: data.name,
-      image: data.image,
-      price: data.price,
-      countInStock: data.countInStock,
-      quantity,
-    } as TCart;
-  } catch (error: any) {
-    return rejectWithValue(error.response.data.message);
+      return {
+        product: data._id,
+        name: data.name,
+        image: data.image,
+        price: data.price,
+        countInStock: data.countInStock,
+        quantity,
+      } as TCart;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data.message);
+    }
   }
-});
+);
 
 // Load cartItems from localStorage to fill initialState
 // const cartItemsFromStorage =
