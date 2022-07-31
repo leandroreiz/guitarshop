@@ -32,12 +32,12 @@ export const addToCart = createAsyncThunk<
 });
 
 // Load cartItems from localStorage to fill initialState
-const cartItemsFromStorage =
-  localStorage.getItem('cartItems') !== null
-    ? JSON.parse(localStorage.getItem('cartItems') as string)
-    : [];
+// const cartItemsFromStorage =
+//   localStorage.getItem('cartItems') !== null
+//     ? JSON.parse(localStorage.getItem('cartItems') as string)
+//     : [];
 
-const initialState: TCartState = { cartItems: cartItemsFromStorage };
+const initialState: TCartState = { cartItems: [] };
 
 const cartSlice = createSlice({
   name: 'cart',

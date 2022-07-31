@@ -10,7 +10,7 @@ import {
 } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { ActionAttributes, addToCart } from '../features/cart/cartSlice';
+import { addToCart } from '../features/cart/cartSlice';
 import Message from '../common/components/Message';
 
 const CartPage = () => {
@@ -19,9 +19,15 @@ const CartPage = () => {
   const cart = useAppSelector((state) => state.cart.cartItems);
   console.log('CART:', cart);
 
+  const id: string = String(params.id);
+
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const quantity: number = Number(urlParams.get('qty'));
+
   useEffect(() => {
-    dispatch(addToCart({ id: '62e1a298c821ac4b525e5c2e', quantity: 3 }));
-  }, [params.id, params.qty, dispatch]);
+    dispatch(addToCart({ id, quantity }));
+  }, [id, quantity, dispatch]);
 
   return <div>CartPage</div>;
 };
