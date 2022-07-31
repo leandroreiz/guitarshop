@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import {
   Button,
   Card,
@@ -8,19 +10,23 @@ import {
   ListGroup,
   Row,
 } from 'react-bootstrap';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { addToCart } from '../features/cart/cartSlice';
 import Message from '../common/components/Message';
 
 const CartPage = () => {
-  const params = useParams();
-  const dispatch = useAppDispatch();
-  const cart = useAppSelector((state) => state.cart.cartItems);
-  console.log('CART:', cart);
+  const { cart } = useAppSelector((state) => state.cart);
+  console.log('CART ITEMS:', cart);
 
+  const params = useParams();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  // Get product ID
   const productId: string = String(params.id);
 
+  // Get the quantity from URL query params
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const quantity: number = Number(urlParams.get('qty'));
@@ -29,7 +35,99 @@ const CartPage = () => {
     dispatch(addToCart({ productId, quantity }));
   }, [productId, quantity, dispatch]);
 
-  return <div>CartPage</div>;
+  // Handlers
+  const removeFromCartHandler = (id: string) => {
+    console.log(`Thi will remove item id: ${id}`);
+  };
+
+  const checkoutHandler = () => {
+    navigate(`/login?redirect=shipping`);
+  };
+
+  return (
+    <Row>
+      <Col md={8}>
+        <h1>Shopping Cart</h1>
+        {cart.length === 0 ? (
+          <Message>
+            Your cart is empty — <Link to="/">Go Back</Link>
+          </Message>
+        ) : (
+          <ListGroup variant="flush">
+            {cart.map((item) => (
+              <ListGroup.Item key={item.product}>
+                <Row>
+                  <Col md={2}>
+                    <Image src={item.image} alt={item.name} fluid rounded />
+                  </Col>
+                  <Col md={3}>
+                    <Link to={`/product/${item.product}`}>{item.name}</Link>
+                  </Col>
+                  <Col md={2}>€{item.price}</Col>
+                  <Col md={2}>
+                    <Form.Select
+                      aria-label="Select quantity"
+                      value={item.quantity}
+                      onChange={(evt) =>
+                        dispatch(
+                          addToCart({
+                            productId: item.product,
+                            quantity: +evt.target.value,
+                          })
+                        )
+                      }
+                    >
+                      {[...Array(item.countInStock).keys()].map((val) => (
+                        <option key={val + 1} value={val + 1}>
+                          {val + 1}
+                        </option>
+                      ))}
+                    </Form.Select>
+                  </Col>
+                  <Col md={2}>
+                    <Button
+                      type="button"
+                      variant="light"
+                      onClick={() => removeFromCartHandler(item.product)}
+                    >
+                      <FontAwesomeIcon icon={solid('trash')} />
+                    </Button>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        )}
+      </Col>
+      <Col md={4}>
+        <Card>
+          <ListGroup variant="flush">
+            <ListGroup.Item>
+              <h2>
+                Subtotal ({cart.reduce((acc, item) => acc + item.quantity, 0)})
+                items
+              </h2>
+              €
+              {cart
+                .reduce((acc, item) => acc + item.quantity * item.price, 0)
+                .toFixed(2)}
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <div className="d-grid">
+                <Button
+                  disabled={cart.length === 0}
+                  type="button"
+                  onClick={checkoutHandler}
+                >
+                  Proceed to Checkout
+                </Button>
+              </div>
+            </ListGroup.Item>
+          </ListGroup>
+        </Card>
+      </Col>
+    </Row>
+  );
 };
 
 export default CartPage;

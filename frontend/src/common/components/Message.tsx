@@ -1,12 +1,12 @@
 import Alert from 'react-bootstrap/Alert';
 
 interface MessageProps {
-  variant: string;
-  message: string;
+  variant?: string;
+  children?: React.ReactNode;
 }
 
-const Message: React.FC<MessageProps> = ({ variant, message }) => {
-  return <Alert variant={variant}>{message}</Alert>;
+const Message: React.FC<MessageProps> = ({ variant, children }) => {
+  return <Alert variant={variant}>{children}</Alert>;
 };
 
 Message.defaultProps = {

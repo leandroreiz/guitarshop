@@ -1,4 +1,4 @@
-export type TCart = {
+export type TCartItem = {
   product: string;
   name: string;
   image: string;
@@ -7,6 +7,6 @@ export type TCart = {
   quantity: number;
 };
 
-export type TCartState = {
-  cartItems: Array<TCart>;
+export type TCart = {
+  cart: Array<TCartItem>;
 };

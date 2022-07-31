@@ -10,7 +10,7 @@ import {
   Form,
 } from 'react-bootstrap';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { fetchProduct } from '../features/products/productSlice';
+import { fetchProductById } from '../features/products/productDetailsSlice';
 import Rating from '../common/components/Rating';
 import Loader from '../common/components/Loader';
 import Message from '../common/components/Message';
@@ -18,18 +18,16 @@ import { useNavigate } from 'react-router-dom';
 
 const ProductPage: React.FC = () => {
   const [quantity, setQuantity] = useState<number>(1);
-
-  const params = useParams();
-  const navigate = useNavigate();
-
   const { isLoading, product, error } = useAppSelector(
     (state) => state.productDetails
   );
 
+  const params = useParams();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchProduct(params.id!.toString()));
+    dispatch(fetchProductById(params.id!.toString()));
   }, [dispatch, params]);
 
   // Adding items to cart
@@ -49,7 +47,7 @@ const ProductPage: React.FC = () => {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <Message variant="danger" message={errorMessage} />
+        <Message variant="danger">{errorMessage}</Message>
       ) : (
         <Row>
           <Col md={6}>

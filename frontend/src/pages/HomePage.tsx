@@ -1,16 +1,17 @@
 import { useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import { fetchProducts } from '../features/products/productSlice';
+import { fetchProducts } from '../features/products/productListSlice';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import Product from '../features/products/Product';
 import Loader from '../common/components/Loader';
 import Message from '../common/components/Message';
 
 const Home = () => {
-  const dispatch = useAppDispatch();
   const { isLoading, products, error } = useAppSelector(
-    (state) => state.productsList
+    (state) => state.productList
   );
+
+  const dispatch = useAppDispatch();
 
   // Type Guard
   const errorMessage =
@@ -26,7 +27,7 @@ const Home = () => {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <Message variant="danger" message={errorMessage} />
+        <Message variant="danger">{errorMessage}</Message>
       ) : (
         <Row>
           {products.map((product) => (
