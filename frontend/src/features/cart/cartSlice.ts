@@ -44,6 +44,8 @@ const cartSlice = createSlice({
   reducers: {
     removeItem: (state, action: PayloadAction<string>) => {
       state.cart = state.cart.filter((item) => item.product !== action.payload);
+      // @TODO update localStorage
+      // localStorage.setItem('cartItems', JSON.stringify(getState().cart))
     },
   },
   extraReducers: (builder) => {
