@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { TCart, TCartItem } from './cart.types';
 
 export interface ActionAttributes {
@@ -41,7 +41,11 @@ const initialState: TCart = { cart: [] };
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
-  reducers: {},
+  reducers: {
+    removeItem: (state, action: PayloadAction<string>) => {
+      state.cart = state.cart.filter((item) => item.product !== action.payload);
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(addToCart.fulfilled, (state, action) => {
       const newItem = action.payload;
@@ -61,5 +65,7 @@ const cartSlice = createSlice({
     });
   },
 });
+
+export const { removeItem } = cartSlice.actions;
 
 export default cartSlice.reducer;
