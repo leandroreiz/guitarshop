@@ -1,11 +1,13 @@
 import jwt from 'jsonwebtoken';
+import { ObjectId } from 'mongoose';
 
 /**
- * Generate a Json Web Token (JWT)
- *  @param id   take user's `id` (type: string)
+ * Generates a Json Web Token (JWT)
+ * @param _id  take user's `_id: string` as parameter
+ * @return     returns a `string` with the JWT
  */
-const generateToken = (id: string) => {
-  return jwt.sign({ id }, String(process.env.JWT_SECRET), {
+const generateToken = (_id: string) => {
+  return jwt.sign({ _id }, process.env.JWT_SECRET!, {
     expiresIn: '30d',
   });
 };
