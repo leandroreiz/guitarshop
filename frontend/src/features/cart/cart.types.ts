@@ -1,3 +1,12 @@
+export interface ICart {
+  cart: Array<TCartItem>;
+}
+
+export interface ICartActionAttributes {
+  productId: string;
+  quantity: number;
+}
+
 export type TCartItem = {
   product: string;
   name: string;
@@ -5,8 +14,4 @@ export type TCartItem = {
   price: number;
   countInStock: number;
   quantity: number;
-};
-
-export type TCart = {
-  cart: Array<TCartItem>;
 };

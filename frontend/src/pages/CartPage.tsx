@@ -17,14 +17,13 @@ import Message from '../common/components/Message';
 
 const CartPage = () => {
   const { cart } = useAppSelector((state) => state.cart);
-  console.log('CART ITEMS:', cart);
 
   const params = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   // Get product ID
-  const productId: string = String(params.id);
+  const productId = String(params.id);
 
   // Get the quantity from URL query params
   const queryString = window.location.search;

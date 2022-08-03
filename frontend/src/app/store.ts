@@ -3,15 +3,17 @@ import userLoginReducer from '../features/users/userLoginSlice';
 import productListReducer from '../features/products/productListSlice';
 import productDetailsReducer from '../features/products/productDetailsSlice';
 import cartReducer from '../features/cart/cartSlice';
+import userRegisterReducer from '../features/users/userRegisterSlice';
 
-// @TODO load cart and userData from localStorage
+// @TODO load cart from localStorage
 
 const store = configureStore({
   reducer: {
-    productList: productListReducer,
-    productDetails: productDetailsReducer,
     cart: cartReducer,
-    user: userLoginReducer,
+    productDetails: productDetailsReducer,
+    productList: productListReducer,
+    userLogin: userLoginReducer,
+    userRegister: userRegisterReducer,
   },
 });
 

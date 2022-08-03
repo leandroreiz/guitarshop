@@ -1,13 +1,8 @@
 import axios from 'axios';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import type { TCart, TCartItem } from './cart.types';
+import type { ICartActionAttributes, ICart, TCartItem } from './cart.types';
 
-interface CartActionAttributes {
-  productId: string;
-  quantity: number;
-}
-
-export const addToCart = createAsyncThunk<TCartItem, CartActionAttributes>(
+export const addToCart = createAsyncThunk<TCartItem, ICartActionAttributes>(
   'cart/addToCart',
   async ({ productId, quantity }, APIThunk) => {
     try {
@@ -36,7 +31,7 @@ export const addToCart = createAsyncThunk<TCartItem, CartActionAttributes>(
 //     ? JSON.parse(localStorage.getItem('cartItems') as string)
 //     : [];
 
-const initialState: TCart = { cart: [] };
+const initialState: ICart = { cart: [] };
 
 const cartSlice = createSlice({
   name: 'cart',

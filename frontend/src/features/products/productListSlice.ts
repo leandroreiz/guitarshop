@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import type { TProductList } from './product.types';
+import type { IProductList } from './product.types';
 
 // List all products in database
 export const fetchProducts = createAsyncThunk(
@@ -16,7 +16,7 @@ export const fetchProducts = createAsyncThunk(
 );
 
 // Define initial state
-const initialState: TProductList = {
+const initialState: IProductList = {
   isLoading: false,
   products: [],
   error: '',

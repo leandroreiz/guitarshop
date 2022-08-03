@@ -1,3 +1,19 @@
+export interface IProductProps {
+  product: TProduct;
+}
+
+export interface IProductList {
+  isLoading: boolean;
+  products: Array<TProduct>;
+  error?: string | unknown;
+}
+
+export interface IProductDetails {
+  isLoading: boolean;
+  product: TProduct;
+  error?: string | unknown;
+}
+
 export type TProduct = {
   _id: string;
   name: string;
@@ -9,20 +25,4 @@ export type TProduct = {
   countInStock: number;
   rating: number;
   numReviews: number;
-};
-
-export type TProductProps = {
-  product: TProduct;
-};
-
-export type TProductList = {
-  isLoading: boolean;
-  products: Array<TProduct>;
-  error?: string | unknown;
-};
-
-export type TProductDetails = {
-  isLoading: boolean;
-  product: TProduct;
-  error?: string | unknown;
 };

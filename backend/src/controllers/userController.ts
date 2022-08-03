@@ -7,7 +7,7 @@ import User from '../models/userModel';
  * @route   POST /api/v1/users
  * @access  Public
  */
-export const createUser = asyncHandler(async (req, res) => {
+export const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
   const isUser = await User.findOne({ email });
 

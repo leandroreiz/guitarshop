@@ -1,9 +1,26 @@
-import { Container, Navbar, Nav, Offcanvas } from 'react-bootstrap';
+import {
+  Container,
+  Navbar,
+  Nav,
+  Offcanvas,
+  NavDropdown,
+} from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { logout } from '../../features/users/userLoginSlice';
 
 const Header = () => {
+  const { userData } = useAppSelector((state) => state.userLogin);
+
+  const dispatch = useAppDispatch();
+
+  const logoutHandler = () => {
+    localStorage.removeItem('userData');
+    dispatch(logout());
+  };
+
   return (
     <header>
       <Navbar bg="dark" variant="dark" expand="md" collapseOnSelect>
@@ -30,12 +47,24 @@ const Header = () => {
                     &nbsp;Cart
                   </Nav.Link>
                 </LinkContainer>
-                <LinkContainer to="/login">
-                  <Nav.Link>
-                    <FontAwesomeIcon icon={solid('user')} />
-                    &nbsp;Log In
-                  </Nav.Link>
-                </LinkContainer>
+
+                {userData ? (
+                  <NavDropdown title={userData.name} id="username">
+                    <LinkContainer to="/profile">
+                      <NavDropdown.Item>Profile</NavDropdown.Item>
+                    </LinkContainer>
+                    <NavDropdown.Item onClick={logoutHandler}>
+                      Logout
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                ) : (
+                  <LinkContainer to="/login">
+                    <Nav.Link>
+                      <FontAwesomeIcon icon={solid('user')} />
+                      &nbsp;Log In
+                    </Nav.Link>
+                  </LinkContainer>
+                )}
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>

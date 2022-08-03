@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import type { TProductDetails } from './product.types';
+import type { IProductDetails, TProduct } from './product.types';
 
 // List a specific product based on its `id`
 export const fetchProductById = createAsyncThunk(
@@ -16,21 +16,10 @@ export const fetchProductById = createAsyncThunk(
 );
 
 // Define initial state
-const initialState: TProductDetails = {
+const initialState: IProductDetails = {
   isLoading: false,
   // @WHY is not possible to define an empty object here?
-  product: {
-    _id: '',
-    name: '',
-    image: '',
-    description: '',
-    brand: '',
-    category: '',
-    price: 0,
-    countInStock: 0,
-    rating: 0,
-    numReviews: 0,
-  },
+  product: {} as TProduct,
   error: '',
 };
 
