@@ -2,12 +2,12 @@ import axios from 'axios';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { TCart, TCartItem } from './cart.types';
 
-export interface ActionAttributes {
+interface CartActionAttributes {
   productId: string;
   quantity: number;
 }
 
-export const addToCart = createAsyncThunk<TCartItem, ActionAttributes>(
+export const addToCart = createAsyncThunk<TCartItem, CartActionAttributes>(
   'cart/addToCart',
   async ({ productId, quantity }, APIThunk) => {
     try {

@@ -29,7 +29,7 @@ const CartPage = () => {
   // Get the quantity from URL query params
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const quantity: number = Number(urlParams.get('qty'));
+  const quantity = urlParams ? Number(urlParams.get('qty')) : 0;
 
   useEffect(() => {
     dispatch(addToCart({ productId, quantity }));
