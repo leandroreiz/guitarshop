@@ -15,4 +15,6 @@ export type TUser = {
   email: string;
   password: string;
   isAdmin?: boolean;
+  token?: string;
+  _id?: string;
 };

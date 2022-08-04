@@ -4,6 +4,7 @@ import productListReducer from '../features/products/productListSlice';
 import productDetailsReducer from '../features/products/productDetailsSlice';
 import cartReducer from '../features/cart/cartSlice';
 import userRegisterReducer from '../features/users/userRegisterSlice';
+import userProfileReducer from '../features/users/userProfileSlice';
 
 // @TODO load cart from localStorage
 
@@ -13,6 +14,7 @@ const store = configureStore({
     productDetails: productDetailsReducer,
     productList: productListReducer,
     userLogin: userLoginReducer,
+    userProfile: userProfileReducer,
     userRegister: userRegisterReducer,
   },
 });
