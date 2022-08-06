@@ -22,16 +22,13 @@ export const addToCart = createAsyncThunk<TCartItem, ICartActionAttributes>(
   }
 );
 
-// @TODO set cartItems to localStorage
-// localStorage.setItem('cartItems', JSON.stringify(getState().cartItems));
+// Load cartItems from localStorage to fill initialState
+const cartItemsFromStorage =
+  localStorage.getItem('cartItems') !== null
+    ? JSON.parse(localStorage.getItem('cartItems') as string)
+    : [];
 
-// @TODO load cartItems from localStorage to initialState
-// const cartItemsFromStorage =
-//   localStorage.getItem('cartItems') !== null
-//     ? JSON.parse(localStorage.getItem('cartItems') as string)
-//     : [];
-
-const initialState: ICart = { cart: [] };
+const initialState: ICart = { cart: cartItemsFromStorage };
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -39,8 +36,8 @@ const cartSlice = createSlice({
   reducers: {
     removeFromCart: (state, action: PayloadAction<string>) => {
       state.cart = state.cart.filter((item) => item.product !== action.payload);
-      // @TODO update localStorage
-      // localStorage.setItem('cartItems', JSON.stringify(getState().cart))
+      // Update localStorage
+      localStorage.setItem('cartItems', JSON.stringify(state.cart));
     },
   },
   extraReducers: (builder) => {
@@ -59,6 +56,9 @@ const cartSlice = createSlice({
 
       // Add new item to cart
       if (!hasItem) state.cart = [...state.cart, newItem];
+
+      // Set cart to localStorage
+      localStorage.setItem('cartItems', JSON.stringify(state.cart));
     });
   },
 });
