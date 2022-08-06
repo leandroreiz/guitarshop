@@ -12,7 +12,7 @@ import {
 } from 'react-bootstrap';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { addToCart, removeItem } from '../features/cart/cartSlice';
+import { addToCart, removeFromCart } from '../features/cart/cartSlice';
 import Message from '../common/components/Message';
 
 const CartPage = () => {
@@ -36,7 +36,7 @@ const CartPage = () => {
 
   // Handlers
   const removeFromCartHandler = (id: string) => {
-    dispatch(removeItem(id));
+    dispatch(removeFromCart(id));
   };
 
   const checkoutHandler = () => {

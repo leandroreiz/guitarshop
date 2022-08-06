@@ -3,6 +3,7 @@ import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { getProfile } from '../features/users/userProfileSlice';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { updateProfile } from '../features/users/userProfileUpdateSlice';
 import Message from '../common/components/Message';
 import Loader from '../common/components/Loader';
 
@@ -23,6 +24,8 @@ const ProfilePage = () => {
     (state) => state.userLogin
   );
 
+  const { success } = useAppSelector((state) => state.userProfileUpdate);
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -30,7 +33,7 @@ const ProfilePage = () => {
     if (!userLoginData) {
       navigate('/login');
     } else {
-      if (!userProfileData?.name) {
+      if (!userProfileData || !userProfileData?.name) {
         dispatch(getProfile('profile'));
       } else {
         setName(userProfileData.name);
@@ -45,7 +48,9 @@ const ProfilePage = () => {
     if (password !== confirmPassword) {
       setMessage('Passwords do not match!');
     } else {
-      // dispatch updateProfile
+      dispatch(
+        updateProfile({ _id: userLoginData?._id, name, email, password })
+      );
     }
   };
 
@@ -61,6 +66,7 @@ const ProfilePage = () => {
           {isLoading && <Loader />}
           {error && <Message variant="danger">{errorMessage}</Message>}
           {message && <Message variant="danger">{message}</Message>}
+          {success && <Message variant="success">Profile Updated!</Message>}
 
           <Form onSubmit={submitHandler}>
             <Form.Group className="mb-3" controlId="name">

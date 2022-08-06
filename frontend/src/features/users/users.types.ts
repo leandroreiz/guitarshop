@@ -2,6 +2,7 @@ export interface IUserState {
   isLoading: boolean;
   userData: TUser | null;
   error?: string | unknown;
+  success?: boolean;
 }
 
 export interface IUserActionAttributes {

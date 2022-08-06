@@ -18,7 +18,6 @@ export const fetchProductById = createAsyncThunk(
 // Define initial state
 const initialState: IProductDetails = {
   isLoading: false,
-  // @WHY is not possible to define an empty object here?
   product: {} as TProduct,
   error: '',
 };
