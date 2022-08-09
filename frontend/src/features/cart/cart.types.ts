@@ -1,6 +1,13 @@
 export interface ICart {
-  cart: Array<TCartItem>;
-  shippingAddress: ICartActionShippingAddress;
+  cart: {
+    cartItems: Array<TCartItem>;
+    itemsPrice?: number;
+    shippingPrice?: number;
+    taxPrice?: number;
+    totalPrice?: number;
+  };
+  shippingAddress?: ICartActionShippingAddress;
+  paymentMethod: string;
 }
 
 export interface ICartActionAttributes {

@@ -47,13 +47,13 @@ const CartPage = () => {
     <Row>
       <Col md={8}>
         <h1>Shopping Cart</h1>
-        {cart.length === 0 ? (
+        {cart.cartItems.length === 0 ? (
           <Message>
             Your cart is empty — <Link to="/">Go Back</Link>
           </Message>
         ) : (
           <ListGroup variant="flush">
-            {cart.map((item) => (
+            {cart.cartItems.map((item) => (
               <ListGroup.Item key={item.product}>
                 <Row>
                   <Col md={2}>
@@ -103,18 +103,19 @@ const CartPage = () => {
           <ListGroup variant="flush">
             <ListGroup.Item>
               <h2>
-                Subtotal ({cart.reduce((acc, item) => acc + item.quantity, 0)})
+                Subtotal (
+                {cart.cartItems.reduce((acc, item) => acc + item.quantity, 0)})
                 items
               </h2>
               €
-              {cart
+              {cart.cartItems
                 .reduce((acc, item) => acc + item.quantity * item.price, 0)
                 .toFixed(2)}
             </ListGroup.Item>
             <ListGroup.Item>
               <div className="d-grid">
                 <Button
-                  disabled={cart.length === 0}
+                  disabled={cart.cartItems.length === 0}
                   type="button"
                   onClick={checkoutHandler}
                 >

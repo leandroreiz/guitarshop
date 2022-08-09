@@ -9,6 +9,8 @@ import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import ProfilePage from '../pages/ProfilePage';
 import ShippingPage from '../pages/ShippingPage';
+import PaymentPage from '../pages/PaymentPage';
+import CheckoutPage from '../pages/CheckoutPage';
 
 const App = () => {
   return (
@@ -17,6 +19,8 @@ const App = () => {
       <main className="py-3">
         <Container>
           <Routes>
+            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/payment" element={<PaymentPage />} />
             <Route path="/shipping" element={<ShippingPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
