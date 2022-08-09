@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import FormContainer from '../common/components/FormContainer';
 import { saveShippingAddress } from '../features/cart/cartSlice';
+import FormContainer from '../common/components/FormContainer';
+import CheckoutSteps from '../common/components/CheckoutSteps';
 
 const ShippingPage = () => {
   const cart = useAppSelector((state) => state.cart);
@@ -26,6 +27,7 @@ const ShippingPage = () => {
 
   return (
     <FormContainer>
+      <CheckoutSteps step1 step2 />
       <h1>Shipping Details</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group className="mb-3" controlId="address">
