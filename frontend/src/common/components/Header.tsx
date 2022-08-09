@@ -61,7 +61,7 @@ const Header = () => {
                   <LinkContainer to="/login">
                     <Nav.Link>
                       <FontAwesomeIcon icon={solid('user')} />
-                      &nbsp;Log In
+                      &nbsp;Sign In
                     </Nav.Link>
                   </LinkContainer>
                 )}

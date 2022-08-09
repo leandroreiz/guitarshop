@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import {
   Row,
   Col,
@@ -15,8 +15,9 @@ import Rating from '../common/components/Rating';
 import Loader from '../common/components/Loader';
 import Message from '../common/components/Message';
 import { useNavigate } from 'react-router-dom';
+import { addToCart } from '../features/cart/cartSlice';
 
-const ProductPage: React.FC = () => {
+const ProductPage = () => {
   const [quantity, setQuantity] = useState<number>(1);
   const { isLoading, product, error } = useAppSelector(
     (state) => state.productDetails
@@ -32,7 +33,8 @@ const ProductPage: React.FC = () => {
 
   // Adding items to cart
   const addToCartHandler = () => {
-    navigate(`/cart/${params.id}?qty=${quantity}`);
+    dispatch(addToCart({ productId: product._id, quantity }));
+    navigate(`/cart`);
   };
 
   // Type Guard
@@ -41,9 +43,13 @@ const ProductPage: React.FC = () => {
 
   return (
     <>
-      <Link className="btn btn-outline-dark my-3" to="/">
+      <Button
+        className="my-3"
+        variant="outline-dark"
+        onClick={() => navigate(-1)}
+      >
         Go Back
-      </Link>
+      </Button>
       {isLoading ? (
         <Loader />
       ) : error ? (

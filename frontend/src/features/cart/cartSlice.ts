@@ -1,12 +1,19 @@
 import axios from 'axios';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import type { ICartActionAttributes, ICart, TCartItem } from './cart.types';
+import type {
+  ICartActionAttributes,
+  ICart,
+  TCartItem,
+  ICartActionShippingAddress,
+} from './cart.types';
 
 export const addToCart = createAsyncThunk<TCartItem, ICartActionAttributes>(
   'cart/addToCart',
   async ({ productId, quantity }, APIThunk) => {
     try {
-      const { data } = await axios.get(`/api/v1/products/${productId}`);
+      const response = await axios.get(`/api/v1/products/${productId}`);
+
+      const data = response.data;
 
       return {
         product: data._id,
@@ -28,7 +35,16 @@ const cartItemsFromStorage =
     ? JSON.parse(localStorage.getItem('cartItems') as string)
     : [];
 
-const initialState: ICart = { cart: cartItemsFromStorage };
+// Load shipping address from localStorage
+const shippingAddressFromStorage =
+  localStorage.getItem('shippingAddress') !== null
+    ? JSON.parse(localStorage.getItem('shippingAddress') as string)
+    : {};
+
+const initialState: ICart = {
+  cart: cartItemsFromStorage,
+  shippingAddress: shippingAddressFromStorage,
+};
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -38,6 +54,14 @@ const cartSlice = createSlice({
       state.cart = state.cart.filter((item) => item.product !== action.payload);
       // Update localStorage
       localStorage.setItem('cartItems', JSON.stringify(state.cart));
+    },
+    saveShippingAddress: (
+      state,
+      action: PayloadAction<ICartActionShippingAddress>
+    ) => {
+      state.shippingAddress = action.payload;
+      // Set address to localStorage
+      localStorage.setItem('shippingAddress', JSON.stringify(action.payload));
     },
   },
   extraReducers: (builder) => {
@@ -63,6 +87,6 @@ const cartSlice = createSlice({
   },
 });
 
-export const { removeFromCart } = cartSlice.actions;
+export const { removeFromCart, saveShippingAddress } = cartSlice.actions;
 
 export default cartSlice.reducer;

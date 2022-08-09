@@ -13,16 +13,16 @@ const userSchema = new mongoose.Schema<IUser>(
   {
     name: {
       type: String,
-      required: true,
+      required: [true, 'Please enter your name'],
     },
     email: {
       type: String,
-      required: true,
+      required: [true, 'Please enter a valid email'],
       unique: true,
     },
     password: {
       type: String,
-      required: true,
+      required: [true, 'Please inform a password'],
     },
     isAdmin: {
       type: Boolean,
