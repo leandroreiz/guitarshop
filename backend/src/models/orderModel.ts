@@ -5,7 +5,7 @@ interface IOrder extends Document {
   orderItems: [
     {
       name: string;
-      qty: number;
+      quantity: number;
       image: string;
       price: number;
       product: mongoose.Schema.Types.ObjectId;
@@ -46,7 +46,7 @@ const orderSchema = new mongoose.Schema<IOrder>(
           type: String,
           required: true,
         },
-        qty: {
+        quantity: {
           type: Number,
           required: true,
         },

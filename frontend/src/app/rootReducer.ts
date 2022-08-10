@@ -6,6 +6,7 @@ import userLoginReducer from '../features/users/userLoginSlice';
 import userRegisterReducer from '../features/users/userRegisterSlice';
 import userProfileReducer from '../features/users/userProfileSlice';
 import userProfileUpdateReducer from '../features/users/userProfileUpdateSlice';
+import orderCreateReducer from '../features/orders/ordersSlice';
 
 const rootReducer = combineReducers({
   cart: cartReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   userProfile: userProfileReducer,
   userProfileUpdate: userProfileUpdateReducer,
   userRegister: userRegisterReducer,
+  orderCreate: orderCreateReducer,
 });
 
 export default rootReducer;

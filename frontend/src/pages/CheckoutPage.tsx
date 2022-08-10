@@ -1,8 +1,10 @@
+import { useEffect } from 'react';
 import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { calculateCheckoutPrices } from '../features/cart/cartSlice';
+import { createOrder } from '../features/orders/ordersSlice';
 import Message from '../common/components/Message';
 import CheckoutSteps from '../common/components/CheckoutSteps';
 
@@ -12,11 +14,39 @@ const CheckoutPage = () => {
   );
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   // Calculate prices
   dispatch(calculateCheckoutPrices());
 
-  const checkoutHandler = () => {};
+  const { order, isSuccess, error } = useAppSelector(
+    (state) => state.orderCreate
+  );
+
+  console.log(order);
+  const orderId = order._id;
+
+  useEffect(() => {
+    if (isSuccess) navigate(`/order/${orderId}`);
+  }, [navigate, isSuccess, orderId]);
+
+  // Fill out the order
+  const checkoutHandler = () => {
+    dispatch(
+      createOrder({
+        orderItems: cart.cartItems,
+        shippingAddress,
+        paymentMethod,
+        itemsPrice: cart.itemsPrice,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+      })
+    );
+  };
+
+  const errorMessage =
+    typeof error === 'string' ? error : 'Oh snap! You got an error!';
 
   return (
     <>
@@ -102,6 +132,15 @@ const CheckoutPage = () => {
                   <Col>€{cart.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
+
+              <ListGroup.Item>
+                {error ? (
+                  <Message variant="danger">{errorMessage}</Message>
+                ) : (
+                  ''
+                )}
+              </ListGroup.Item>
+
               <ListGroup.Item>
                 <div className="d-grid">
                   <Button
