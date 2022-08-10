@@ -76,6 +76,19 @@ const cartSlice = createSlice({
       state.paymentMethod = action.payload;
       localStorage.setItem('paymentMethod', JSON.stringify(action.payload));
     },
+    calculateCheckoutPrices: (state) => {
+      state.cart.itemsPrice = state.cart.cartItems.reduce(
+        (acc, item) => acc + item.price * item.quantity,
+        0
+      );
+
+      state.cart.shippingPrice = state.cart.itemsPrice > 3000 ? 0 : 15;
+
+      state.cart.taxPrice = Number((0.15 * state.cart.itemsPrice).toFixed(2));
+
+      state.cart.totalPrice =
+        state.cart.itemsPrice + state.cart.shippingPrice + state.cart.taxPrice;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(addToCart.fulfilled, (state, action) => {
@@ -100,7 +113,11 @@ const cartSlice = createSlice({
   },
 });
 
-export const { removeFromCart, saveShippingAddress, savePaymentMethod } =
-  cartSlice.actions;
+export const {
+  removeFromCart,
+  saveShippingAddress,
+  savePaymentMethod,
+  calculateCheckoutPrices,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

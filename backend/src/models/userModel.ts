@@ -1,7 +1,7 @@
-import mongoose from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 import bcrypt from 'bcryptjs';
 
-interface IUser {
+interface IUser extends Document {
   name: string;
   email: string;
   password: string;

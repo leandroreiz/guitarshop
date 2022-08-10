@@ -1,7 +1,8 @@
-import { useState } from 'react';
 import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { calculateCheckoutPrices } from '../features/cart/cartSlice';
 import Message from '../common/components/Message';
 import CheckoutSteps from '../common/components/CheckoutSteps';
 
@@ -10,15 +11,10 @@ const CheckoutPage = () => {
     (state) => state.cart
   );
 
+  const dispatch = useAppDispatch();
+
   // Calculate prices
-  cart.itemsPrice = cart.cartItems.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
-
-  cart.shippingPrice = cart.itemsPrice > 3000 ? 0 : 15;
-
-  cart.taxPrice = Number((0.15 * cart.itemsPrice).toFixed(2));
+  dispatch(calculateCheckoutPrices());
 
   const checkoutHandler = () => {};
 

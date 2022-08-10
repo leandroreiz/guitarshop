@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 
-interface IOrder {
+interface IOrder extends Document {
   user: mongoose.Schema.Types.ObjectId;
   orderItems: [
     {

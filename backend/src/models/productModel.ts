@@ -1,12 +1,12 @@
-import mongoose from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 
-interface IReview {
+interface IReview extends Document {
   name: string;
   rating: number;
   comment: string;
 }
 
-interface IProduct {
+interface IProduct extends Document {
   user: mongoose.Schema.Types.ObjectId;
   name: string;
   image: string;
