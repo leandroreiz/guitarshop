@@ -34,3 +34,38 @@ export const addOrderItems = asyncHandler(async (req, res) => {
     res.status(200).json(createdOrder);
   }
 });
+
+/**
+ * Get all orders
+ * @route   Get /api/v1/orders
+ * @access  Private
+ */
+export const getAllOrders = asyncHandler(async (req, res) => {
+  const order = await Order.find();
+
+  if (order) {
+    res.status(200).json(order);
+  } else {
+    res.status(404);
+    throw new Error('There are no orders to be fecthed!');
+  }
+});
+
+/**
+ * Get order by Id
+ * @route   Get /api/v1/orders/:id
+ * @access  Private
+ */
+export const getOrderById = asyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id).populate(
+    'user',
+    'name email'
+  );
+
+  if (order) {
+    res.status(200).json(order);
+  } else {
+    res.status(404);
+    throw new Error('Order not found!');
+  }
+});
