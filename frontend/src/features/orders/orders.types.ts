@@ -14,11 +14,19 @@ export interface IOrderObject extends Document {
   paidAt: Date;
   isDelivered: boolean;
   deliveredAt: Date;
+  createdAt: Date;
   user?: TUser;
 }
 
 export interface IOrderState {
   order: IOrderObject;
+  isLoading: boolean;
+  isSuccess: boolean;
+  error?: string | unknown;
+}
+
+export interface IOrdersState {
+  orders: IOrderObject[];
   isLoading: boolean;
   isSuccess: boolean;
   error?: string | unknown;

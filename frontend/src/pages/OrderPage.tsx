@@ -19,11 +19,9 @@ const OrderPage = () => {
     error: isErrorDetails,
   } = useAppSelector((state) => state.orderDetails);
 
-  const {
-    isLoading: isLoadingPay,
-    isSuccess: isSuccessPay,
-    error: isErrorPay,
-  } = useAppSelector((state) => state.orderPay);
+  const { isLoading: isLoadingPay, isSuccess: isSuccessPay } = useAppSelector(
+    (state) => state.orderPay
+  );
 
   const dispatch = useAppDispatch();
   const params = useParams();

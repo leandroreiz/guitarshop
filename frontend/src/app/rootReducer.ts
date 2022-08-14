@@ -9,6 +9,7 @@ import userProfileUpdateReducer from '../features/users/userProfileUpdateSlice';
 import orderCreateReducer from '../features/orders/orderCreateSlice';
 import orderDetailsReducer from '../features/orders/orderDetailsSlice';
 import orderPayReducer from '../features/orders/orderPaySlice';
+import orderMyListReducer from '../features/orders/orderMyListSlice';
 
 const rootReducer = combineReducers({
   cart: cartReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
+  orderMyList: orderMyListReducer,
 });
 
 export default rootReducer;

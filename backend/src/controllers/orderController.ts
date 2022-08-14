@@ -1,4 +1,5 @@
 import asyncHandler from 'express-async-handler';
+import mongoose from 'mongoose';
 import Order from '../models/orderModel';
 
 /**
@@ -95,4 +96,14 @@ export const updateOrderPaymentStatus = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error('Order not found!');
   }
+});
+
+/**
+ * Get logged in user orders
+ * @route   Get /api/v1/orders/myorders
+ * @access  Private
+ */
+export const getActiveUserOrders = asyncHandler(async (req, res) => {
+  const orders = await Order.find({ user: req.user._id });
+  res.status(200).json(orders);
 });
