@@ -8,6 +8,7 @@ import userProfileReducer from '../features/users/userProfileSlice';
 import userProfileUpdateReducer from '../features/users/userProfileUpdateSlice';
 import orderCreateReducer from '../features/orders/orderCreateSlice';
 import orderDetailsReducer from '../features/orders/orderDetailsSlice';
+import orderPayReducer from '../features/orders/orderPaySlice';
 
 const rootReducer = combineReducers({
   cart: cartReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   userRegister: userRegisterReducer,
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
+  orderPay: orderPayReducer,
 });
 
 export default rootReducer;

@@ -11,12 +11,20 @@ export interface IOrderObject extends Document {
   taxPrice: number | undefined;
   totalPrice: number | undefined;
   isPaid: boolean;
+  paidAt: Date;
   isDelivered: boolean;
+  deliveredAt: Date;
   user?: TUser;
 }
 
 export interface IOrderState {
   order: IOrderObject;
+  isLoading: boolean;
+  isSuccess: boolean;
+  error?: string | unknown;
+}
+
+export interface IOrderPay {
   isLoading: boolean;
   isSuccess: boolean;
   error?: string | unknown;

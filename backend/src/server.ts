@@ -22,6 +22,11 @@ app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/orders', orderRoutes);
 
+// Access this route to retrieve the PayPal client identification
+app.get('/api/v1/config/paypal', (_, res) =>
+  res.send(process.env.PAYPAL_CLIENT_ID)
+);
+
 // Middlewares
 app.use(notFound);
 app.use(errorHandler);
