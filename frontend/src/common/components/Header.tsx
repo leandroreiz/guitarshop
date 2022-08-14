@@ -23,11 +23,19 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar bg="dark" variant="dark" expand="md" collapseOnSelect>
+      <Navbar bg="primary" variant="dark" expand="md" collapseOnSelect>
         <Container>
           <LinkContainer to="/">
-            <Navbar.Brand>GuitarShop</Navbar.Brand>
+            <Navbar.Brand>
+              <img
+                src="/images/logo.jpg"
+                className="d-inline-block align-top"
+                alt="React Bootstrap logo"
+                height="40"
+              />
+            </Navbar.Brand>
           </LinkContainer>
+
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand-md`}
@@ -36,7 +44,12 @@ const Header = () => {
           >
             <Offcanvas.Header closeButton>
               <Offcanvas.Title id={`offcanvasNavbarLabel-expand-md`}>
-                GuitarShop
+                <img
+                  src="/images/logo_inverse.jpg"
+                  className="d-inline-block align-top"
+                  alt="React Bootstrap logo"
+                  height="60"
+                />
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
