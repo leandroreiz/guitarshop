@@ -40,7 +40,7 @@ export const addOrderItems = asyncHandler(async (req, res) => {
  * @route   Get /api/v1/orders
  * @access  Private
  */
-export const getAllOrders = asyncHandler(async (req, res) => {
+export const getAllOrders = asyncHandler(async (_, res) => {
   const order = await Order.find();
 
   if (order) {

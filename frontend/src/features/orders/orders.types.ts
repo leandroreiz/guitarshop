@@ -1,5 +1,6 @@
 import { Document } from 'mongoose';
 import { ICartActionShippingAddress, TCartItem } from '../cart/cart.types';
+import { TUser } from '../users/users.types';
 
 export interface IOrderObject extends Document {
   orderItems: TCartItem[];
@@ -9,6 +10,9 @@ export interface IOrderObject extends Document {
   shippingPrice: number | undefined;
   taxPrice: number | undefined;
   totalPrice: number | undefined;
+  isPaid: boolean;
+  isDelivered: boolean;
+  user?: TUser;
 }
 
 export interface IOrderState {

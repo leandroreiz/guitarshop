@@ -1,78 +1,76 @@
 import { useEffect } from 'react';
-import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
+import { Link, useParams } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { calculateCheckoutPrices } from '../features/cart/cartSlice';
-import { createOrder } from '../features/orders/orderCreateSlice';
+import { getOrderDetails } from '../features/orders/orderDetailsSlice';
 import Message from '../common/components/Message';
-import CheckoutSteps from '../common/components/CheckoutSteps';
+import Loader from '../common/components/Loader';
 
-const CheckoutPage = () => {
-  const { cart, shippingAddress, paymentMethod } = useAppSelector(
-    (state) => state.cart
+const OrderPage = () => {
+  const { order, isLoading, error } = useAppSelector(
+    (state) => state.orderDetails
   );
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-
-  // Calculate prices
-  dispatch(calculateCheckoutPrices());
-
-  const { order, isSuccess, error } = useAppSelector(
-    (state) => state.orderCreate
-  );
-
-  const orderId = order._id;
+  const params = useParams();
+  const orderId = params.id;
+  const { shippingAddress, paymentMethod } = order;
 
   useEffect(() => {
-    if (isSuccess) navigate(`/order/${orderId}`);
-  }, [navigate, isSuccess, orderId]);
-
-  // Fill out the order
-  const checkoutHandler = () => {
-    dispatch(
-      createOrder({
-        orderItems: cart.cartItems,
-        shippingAddress,
-        paymentMethod,
-        itemsPrice: cart.itemsPrice,
-        shippingPrice: cart.shippingPrice,
-        taxPrice: cart.taxPrice,
-        totalPrice: cart.totalPrice,
-      })
-    );
-  };
+    if (!order || order._id !== orderId) {
+      dispatch(getOrderDetails(orderId));
+    }
+  }, [dispatch, order, orderId]);
 
   const errorMessage =
     typeof error === 'string' ? error : 'Oh snap! You got an error!';
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : error ? (
+    <Message variant="danger">{errorMessage}</Message>
+  ) : (
     <>
-      <CheckoutSteps step1 step2 step3 step4 />
+      <h1 className="text-success">Order {order._id}</h1>
       <Row>
         <Col md={8}>
           <ListGroup variant="flush">
             <ListGroup.Item>
               <h2>Shipping Address</h2>
+              <p>{`${order.user?.name} <${order.user?.email}>`}</p>
               <p>
                 {`${shippingAddress?.address}, ${shippingAddress?.city},
                 ${shippingAddress?.postalCode}, ${shippingAddress?.country}`}
               </p>
+              {order.isDelivered ? (
+                <Message variant="success">
+                  Delivered on {`order.deliveredAt`}
+                </Message>
+              ) : (
+                <Message variant="dark">
+                  Your items will be dispatched after the payment is confirmed
+                </Message>
+              )}
             </ListGroup.Item>
 
             <ListGroup.Item>
-              <h2>Selected Payment Method</h2>
-              {paymentMethod}
+              <h2>Payment Method</h2>
+              <p>{paymentMethod}</p>
+              {order.isPaid ? (
+                <Message variant="success">Paid on {`order.paidAt`}</Message>
+              ) : (
+                <Message variant="dark">Pending payment</Message>
+              )}
             </ListGroup.Item>
 
             <ListGroup.Item>
               <h2>Order Items</h2>
-              {cart.cartItems.length === 0 ? (
-                <Message>Your cart is empty!</Message>
+              {order.orderItems.length === 0 ? (
+                <Message>Order is empty!</Message>
               ) : (
                 <ListGroup variant="flush">
-                  {cart.cartItems.map((item, idx) => (
+                  {order.orderItems.map((item, idx) => (
                     <ListGroup.Item key={idx}>
                       <Row>
                         <Col md={1}>
@@ -109,25 +107,25 @@ const CheckoutPage = () => {
               <ListGroup.Item>
                 <Row>
                   <Col>Items</Col>
-                  <Col>€{cart.itemsPrice}</Col>
+                  <Col>€{order.itemsPrice}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Shipping</Col>
-                  <Col>€{cart.shippingPrice}</Col>
+                  <Col>€{order.shippingPrice}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Tax</Col>
-                  <Col>€{cart.taxPrice}</Col>
+                  <Col>€{order.taxPrice}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Total</Col>
-                  <Col>€{cart.totalPrice}</Col>
+                  <Col>€{order.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
@@ -138,18 +136,6 @@ const CheckoutPage = () => {
                   ''
                 )}
               </ListGroup.Item>
-
-              <ListGroup.Item>
-                <div className="d-grid">
-                  <Button
-                    disabled={cart.cartItems.length === 0}
-                    type="button"
-                    onClick={checkoutHandler}
-                  >
-                    Checkout
-                  </Button>
-                </div>
-              </ListGroup.Item>
             </ListGroup>
           </Card>
         </Col>
@@ -158,4 +144,4 @@ const CheckoutPage = () => {
   );
 };
 
-export default CheckoutPage;
+export default OrderPage;

@@ -29,7 +29,7 @@ const initialState = {
   isSuccess: false,
 } as IOrderState;
 
-const ordersSlice = createSlice({
+const orderCreateSlice = createSlice({
   name: 'orders',
   initialState,
   reducers: {},
@@ -50,4 +50,4 @@ const ordersSlice = createSlice({
   },
 });
 
-export default ordersSlice.reducer;
+export default orderCreateSlice.reducer;
