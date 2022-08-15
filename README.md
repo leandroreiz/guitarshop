@@ -12,7 +12,7 @@
 
 Full-stack e-Commerce application made as the final project for [CS50's](https://www.edx.org/course/introduction-computer-science-harvardx-cs50x?g_acctid=724-505-4034&g_campaign=gs-b2c-nonbrand-tier1geo-partner-harvard-core&g_campaignid=15417765031&g_adgroupid=131210224478&g_adid=588991333656&g_keyword=cs50&g_keywordid=kwd-296840910&g_network=g&utm_source=google&utm_campaign=gs-b2c-nonbrand-tier1geo-partner-harvard-core&utm_medium=cpc&utm_term=cs50&hsa_acc=7245054034&hsa_cam=15417765031&hsa_grp=131210224478&hsa_ad=588991333656&hsa_src=g&hsa_tgt=kwd-296840910&hsa_kw=cs50&hsa_mt=e&hsa_net=adwords&hsa_ver=3&gclid=Cj0KCQjwuuKXBhCRARIsAC-gM0hseeExH3SBKLKOAEpMztyWJYYiV6JBVH64R_Xq90-ZA9NO5IpcNNYaAhx2EALw_wcB) Harvard course.
 
-## Video demo
+## Video Demonstration
 
 As requested by the CS50's team, follow my short video presenting the project.
 
@@ -65,10 +65,28 @@ The website design was inspired by Brad Traversy's Pro Shop, an online shop for 
 
 ### Installation
 
-1. To start a new Create React App project with TypeScript, you can run:
+1. After cloning the project you should run:
 
-```markdown
-npx create-react-app my-app --template typescript
+```sh
+npm install
+```
+
+2. Create a `.env` file on your root directory and add the content below in it:
+
+```sh
+NODE_ENV = 'development';
+PORT = 5000;
+MONGODB_URI =
+  'mongodb+srv://admin:7xa7GgjTYeEqvEzd@guitarshop.5vcsr.mongodb.net/guitarshop?retryWrites=true&w=majority';
+JWT_SECRET = 'thisisasecret';
+PAYPAL_CLIENT_ID =
+  'AUjSVofJ1AjyZPbZ3YLiaPyYXeJzDC568V_zjuu82EFVtA93h65NcamWSuscCbg_kFOPfgQrO2StUwVF';
+```
+
+3. To start the server, run the command below from the root directory:
+
+```sh
+npm start
 ```
 
 ## Documentation
