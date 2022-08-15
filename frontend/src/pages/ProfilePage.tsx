@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
 import { Form, Button, Row, Col, Table } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
-import { getProfile } from '../features/users/userProfileSlice';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { getProfile } from '../features/users/userProfileSlice';
 import { updateProfile } from '../features/users/userProfileUpdateSlice';
 import { getActiveUserOrders } from '../features/orders/orderMyListSlice';
 
 import Message from '../common/components/Message';
 import Loader from '../common/components/Loader';
-import { LinkContainer } from 'react-router-bootstrap';
 
 const ProfilePage = () => {
   const [name, setName] = useState('');
@@ -45,7 +45,7 @@ const ProfilePage = () => {
     if (!userLoginData) {
       navigate('/login');
     } else {
-      if (!userProfileData || !userProfileData?.name) {
+      if (!userProfileData) {
         dispatch(getProfile('profile'));
         dispatch(getActiveUserOrders());
       } else {

@@ -1,28 +1,20 @@
 # Guitar Shop e-Commerce Application
 
-<!-- Section for your links, references, etc. --->
-
 [//]: # 'References'
 [logo]: ./frontend/public/images/logo.jpg
 [shields-badge]: https://img.shields.io/badge/GuitarShop-v1.0-red?style=for-the-badge
-[sample link with url]: https://your-external-link.com
-[sample link with reference to a headline]: #project-title
-[sample link to your file in project]: ./your-folder/your-file.txt
-[license]: #
-[sphinx]: https://www.sphinx-doc.org/en/master/
-[mkdocs]: https://www.mkdocs.org/
-[gitbook]: https://www.gitbook.com/
-[bibtex-wikipedia]: https://en.wikipedia.org/wiki/BibTeX
+[backendfs]: ./frontend/public/images/backend_fs.png
+[frontendfs]: ./frontend/public/images/frontend_fs.png
 
 ![GuitarShop's logo][logo]
 
-<!-- Your badges --->
-
 [![shields.io badge][shields-badge]](https://github.com/leandroreiz/guitarshop)
 
-<!-- One liner about your project --->
+Full-stack e-Commerce application made as the final project for [CS50's](https://www.edx.org/course/introduction-computer-science-harvardx-cs50x?g_acctid=724-505-4034&g_campaign=gs-b2c-nonbrand-tier1geo-partner-harvard-core&g_campaignid=15417765031&g_adgroupid=131210224478&g_adid=588991333656&g_keyword=cs50&g_keywordid=kwd-296840910&g_network=g&utm_source=google&utm_campaign=gs-b2c-nonbrand-tier1geo-partner-harvard-core&utm_medium=cpc&utm_term=cs50&hsa_acc=7245054034&hsa_cam=15417765031&hsa_grp=131210224478&hsa_ad=588991333656&hsa_src=g&hsa_tgt=kwd-296840910&hsa_kw=cs50&hsa_mt=e&hsa_net=adwords&hsa_ver=3&gclid=Cj0KCQjwuuKXBhCRARIsAC-gM0hseeExH3SBKLKOAEpMztyWJYYiV6JBVH64R_Xq90-ZA9NO5IpcNNYaAhx2EALw_wcB) Harvard course.
 
-Full-stack e-Commerce application made with the purpose of applying everything I've been learning for the past months.
+## Video demo
+
+As requested by the CS50's team, follow my short video presenting the project.
 
 ## Table of Contents
 
@@ -35,7 +27,9 @@ Full-stack e-Commerce application made with the purpose of applying everything I
   - [Documentation](#documentation)
     - [User Stories](#user-stories)
     - [Backend](#installation)
+      - [API documentation](#api-documentation)
     - [Frontend](#installation)
+    - [Bugs and Enhancements](#bugs-and-enhancements)
     - [Refactoring Application State](#refactoring-application-state)
   - [Contribution](#contribution)
   - [Acknowledgement](#acknowledgement)
@@ -45,7 +39,9 @@ Full-stack e-Commerce application made with the purpose of applying everything I
 
 ## Introduction
 
-The Guitar Shop e-Commerce Application was developed as a study case for MERN stack using TypeScript. My main goals were to learn TypeScript and how it works in the back and frontend and how to properly use types and OOP.
+The Guitar Shop e-Commerce Application was developed as the final project for CS50's Harvard course. It was made using MongoDB, Express, React and Node (MERN stack) and the primary language used was TypeScript for solid typing. My main goal was to learn TypeScript and how it works in the back and frontend.
+
+The website design was inspired by Brad Traversy's Pro Shop, an online shop for electronic gadgets.
 
 ## Getting Started
 
@@ -75,29 +71,23 @@ The Guitar Shop e-Commerce Application was developed as a study case for MERN st
 npx create-react-app my-app --template typescript
 ```
 
-2. Don't assume that your team members know what to do! So include every little step.
-
-3. Provide instructions for Linux, OSX, and Windows if possible.
-
-```
-Don't forget to include code snippets for easier understanding!
-```
-
 ## Documentation
 
 ### User Stories
 
 As a `customer`, I want to be able to...
 
-- [ ] create an account
-- [ ] log in to my account
-- [ ] log out of my account
-- [ ] see account details
-- [ ] update account details
+- [x] create an account
+- [x] log in to my account
+- [x] log out of my account
+- [x] see account details
+- [x] update account details
 - [ ] search for products
-- [ ] see product details
-- [ ] add items to my cart
-- [ ] remove items from my cart
+- [x] see product details
+- [x] add items to my cart
+- [x] remove items from my cart
+- [x] complete a payment
+- [x] see details of my orders
 - [ ] write a review for a product I bought
 
 As an `admin`, I want to be able to...
@@ -107,11 +97,25 @@ As an `admin`, I want to be able to...
 
 ### Backend
 
-Backend documentation (API use)
+Backend folder's structure:
+
+![Backend folder's structure][backendfs]
+
+#### API documentation
+
+[Complete Backend Documentation (API use)](https://documenter.getpostman.com/view/20490992/VUjSGjBd)
 
 ### Frontend
 
-Frontend documentation (Components, redux store, types, etc)
+Frontend folder's structure:
+
+![Frontend folder's structure][frontendfs]
+
+`Will add more information regarding custom Components.`
+
+### Bugs and Enhancements
+
+You can find the issues tracker for this application clicking [here](https://github.com/leandroreiz/guitarshop/issues).
 
 ### Refactoring Application State
 
@@ -122,6 +126,7 @@ Follow bellow a starter idea on how I pretend to deal with the state:
 ```js
 // User State
 user: {
+  list: User[],
   details: {
     _id: string,
     name: string,
@@ -132,17 +137,30 @@ user: {
     isSuccess: boolean,
     isError: boolean,
   },
-  register: {
+  create: {
     isPending: boolean,
     isSuccess: boolean,
     isError: boolean,
   },
-  login: {
+  update: {
     isPending: boolean,
     isSuccess: boolean,
     isError: boolean,
   },
-  get: {
+  orders: {
+    list: Order[],
+    isPending: boolean,
+    isSuccess: boolean,
+    isError: boolean,
+  },
+  reviews: {
+    list: Review[],
+    isPending: boolean,
+    isSuccess: boolean,
+    isError: boolean,
+  },
+  auth: {
+    isAuthenticated: boolean,
     isPending: boolean,
     isSuccess: boolean,
     isError: boolean,
@@ -153,19 +171,35 @@ user: {
 ```js
 // Product State
 product: {
-  list: [
-    {
-      _id: string,
-      name: string,
-      email: string
-    },
-  ],
+  list: Product[],
+  details: {
+    _id: string,
+    name: string,
+    image: string,
+    brand: string,
+    category: string,
+    description: string,
+    rating: number,
+    numReviews: number,
+    price: number,
+    countInStock: number,
+    user: ObjectId(User),
+    isPending: boolean,
+    isSuccess: boolean,
+    isError: boolean,
+  },
   create: {
     isPending: boolean,
     isSuccess: boolean,
     isError: boolean,
   },
-  get: {
+  update: {
+    isPending: boolean,
+    isSuccess: boolean,
+    isError: boolean,
+  },
+  reviews: {
+    list: Review[],
     isPending: boolean,
     isSuccess: boolean,
     isError: boolean,
@@ -173,21 +207,40 @@ product: {
 }
 ```
 
-Either write your documentation here or [provide a link to your extensive documentation website][documentation-link].
+```js
+// Order State
+order: {
+  list: Order[],
+  details: {
+    _id: string,
+    (etc...)
+  },
+  create: {
+    isPending: boolean,
+    isSuccess: boolean,
+    isError: boolean,
+  },
+  update: {
+    isPending: boolean,
+    isSuccess: boolean,
+    isError: boolean,
+  },
 
-If you have a big code base and lots of things to document you should consider using a documentation tool like [Sphinx][sphinx], [Mkdocs][mkdocs], [Gitbook][gitbook] or any other documentation tool to generate static HTML-files which you then can host on a server.
+}
+```
 
 ## Contribution
 
-Describe how your team members and contributors can contribute to this project. If you have specific style guideline which should be obeyed be sure to mention it here as well. Also, include a link to your issues tracker if you have one e.g. [github.com/project/issues][issue-tracker]
+I, Leandro Fernandes Reis, was the only person involved in the developement of this project.
 
 ## Acknowledgement
 
-Now that you have included yourself, your contributors and/or team members above also make sure to list some further inspirational resources and references for your project:
+Follow below some further inspirational resources and references for this project:
 
-- [Some nice article you have read](#)
-- [An awesome GitHub repository that you have made use of](#)
-- [A StackOverflow question that has helped you out](#)
+- [MERN E-Commerce from scratch by Brad Traversy](https://www.udemy.com/course/mern-ecommerce/), this was the design inspiration and idea for the website. In this course Brad develops a e-Commerce application using JavaScript with MERN stack and Redux for state management. I used TypeScript and RTK for everything while also working the design of the pages with some personal touches.
+- [TypeScript official documentation](https://www.typescriptlang.org/). As I am just starting with TypeScript their documentation was really good on checking the ins and outs of the language.
+- [Redux official documentation](https://redux.js.org/), as previously mentioned Brad used Redux to manage the state, but I've decided to use RTK with TypeScript according to recommendations found in the Redux documentatio.
+- [Redux Toolkit documentation](https://redux-toolkit.js.org/) was the most essential part of this project. Without this documentation I would go nowhere. I read every single line of this document and still coming back to it now and then.
 
 ## License
 

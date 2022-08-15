@@ -11,7 +11,6 @@ interface IProduct extends Document {
   name: string;
   image: string;
   brand: string;
-  isAdmin: boolean;
   category: string;
   description: string;
   reviews: Array<string>;

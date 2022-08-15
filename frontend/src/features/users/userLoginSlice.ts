@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { IUserState, IUserActionAttributes, TUser } from './users.types';
+import { resetMyList } from '../orders/orderMyListSlice';
+import { resetProfile } from './userProfileSlice';
 
 // @TODO verify return type
 /**
@@ -32,6 +34,15 @@ export const login = createAsyncThunk<TUser, IUserActionAttributes>(
   }
 );
 
+export const logout = createAsyncThunk('user/logout', async (_, APIThunk) => {
+  // @TODO: There is a bug when logging out from user's profile page
+  APIThunk.dispatch(resetProfile());
+  APIThunk.dispatch(resetMyList());
+  localStorage.removeItem('userData');
+
+  return;
+});
+
 // Get user data from localStorage
 const userDataFromLocalStorage = localStorage.getItem('userData') as string;
 const data = userDataFromLocalStorage
@@ -41,18 +52,13 @@ const data = userDataFromLocalStorage
 const initialState: IUserState = {
   isLoading: false,
   userData: data,
-  error: '',
+  error: null,
 };
 
 const userLoginSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {
-    logout: (state) => {
-      localStorage.removeItem('userData');
-      state.userData = null;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(login.pending, (state) => {
@@ -65,10 +71,11 @@ const userLoginSlice = createSlice({
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.userData = null;
       });
   },
 });
-
-export const { logout } = userLoginSlice.actions;
 
 export default userLoginSlice.reducer;

@@ -33,7 +33,14 @@ const initialState = {
 const orderMyListSlice = createSlice({
   name: 'orders',
   initialState,
-  reducers: {},
+  reducers: {
+    resetMyList: (state) => {
+      state.orders = [];
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getActiveUserOrders.pending, (state) => {
@@ -50,5 +57,7 @@ const orderMyListSlice = createSlice({
       });
   },
 });
+
+export const { resetMyList } = orderMyListSlice.actions;
 
 export default orderMyListSlice.reducer;

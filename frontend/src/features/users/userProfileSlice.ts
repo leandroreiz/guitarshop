@@ -26,13 +26,19 @@ export const getProfile = createAsyncThunk<any, string, { state: RootState }>(
 const initialState: IUserState = {
   isLoading: false,
   userData: null,
-  error: '',
+  error: null,
 };
 
 const userProfileSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    resetProfile: (state) => {
+      state.isLoading = false;
+      state.userData = null;
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getProfile.pending, (state) => {
@@ -48,5 +54,7 @@ const userProfileSlice = createSlice({
       });
   },
 });
+
+export const { resetProfile } = userProfileSlice.actions;
 
 export default userProfileSlice.reducer;
