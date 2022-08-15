@@ -41,7 +41,7 @@ const LoginPage = () => {
         {isLoading && <Loader />}
         {error && <Message variant="danger">{errorMessage}</Message>}
 
-        <Form onSubmit={submitHandler}>
+        <Form onSubmit={submitHandler} autoComplete="off">
           <Form.Group className="mb-3" controlId="email">
             <Form.Label>Email Address</Form.Label>
             <Form.Control

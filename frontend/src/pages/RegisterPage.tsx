@@ -50,7 +50,7 @@ const RegisterPage = () => {
         {error && <Message variant="danger">{errorMessage}</Message>}
         {message && <Message variant="danger">{message}</Message>}
 
-        <Form onSubmit={submitHandler}>
+        <Form onSubmit={submitHandler} autoComplete="off">
           <Form.Group className="mb-3" controlId="name">
             <Form.Label>Name</Form.Label>
             <Form.Control
