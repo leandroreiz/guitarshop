@@ -115,7 +115,9 @@ const CheckoutPage = () => {
               <ListGroup.Item>
                 <Row>
                   <Col>Shipping</Col>
-                  <Col>€{cart.shippingPrice}</Col>
+                  <Col>
+                    {cart.shippingPrice ? `€${cart.shippingPrice}` : `FREE`}
+                  </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>

@@ -7,6 +7,7 @@ import FormContainer from '../common/components/FormContainer';
 import CheckoutSteps from '../common/components/CheckoutSteps';
 
 const PaymentPage = () => {
+  const [paymentMethod, setPaymentMethod] = useState('PayPal');
   const cart = useAppSelector((state) => state.cart);
   const { shippingAddress } = cart;
 
@@ -14,8 +15,6 @@ const PaymentPage = () => {
   const navigate = useNavigate();
 
   if (!shippingAddress) navigate(`/shipping`);
-
-  const [paymentMethod, setPaymentMethod] = useState('PayPal');
 
   const submitHandler = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();

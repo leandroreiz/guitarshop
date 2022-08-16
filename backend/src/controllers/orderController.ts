@@ -14,6 +14,7 @@ export const addOrderItems = asyncHandler(async (req, res) => {
     paymentMethod,
     itemsPrice,
     shippingPrice,
+    taxPrice,
     totalPrice,
   } = req.body;
 
@@ -27,6 +28,7 @@ export const addOrderItems = asyncHandler(async (req, res) => {
       paymentMethod,
       itemsPrice,
       shippingPrice,
+      taxPrice,
       totalPrice,
       user: req.user._id,
     });

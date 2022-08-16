@@ -150,7 +150,9 @@ const OrderPage = () => {
               <ListGroup.Item>
                 <Row>
                   <Col>Shipping</Col>
-                  <Col>€{order.shippingPrice}</Col>
+                  <Col>
+                    {order.shippingPrice ? `€${order.shippingPrice}` : `FREE`}
+                  </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>

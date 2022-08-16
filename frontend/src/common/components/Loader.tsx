@@ -4,6 +4,7 @@ const Loader = () => {
   return (
     <Spinner
       animation="grow"
+      variant="primary"
       role="status"
       style={{
         width: '100px',
