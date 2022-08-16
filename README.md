@@ -14,7 +14,7 @@ Full-stack e-Commerce application made as the final project for [CS50's](https:/
 
 ## Video Demonstration
 
-As requested by the CS50's team, follow my short video presenting the project.
+As requested by the CS50's team, [follow my short video presenting the project](https://youtu.be/YizJLifgHpQ).
 
 ## Table of Contents
 
