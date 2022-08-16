@@ -1,13 +1,8 @@
-import {
-  Container,
-  Navbar,
-  Nav,
-  Offcanvas,
-  NavDropdown,
-} from 'react-bootstrap';
+import { Container, Navbar, Nav, NavDropdown, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { logout } from '../../features/users/userLoginSlice';
 
@@ -23,64 +18,60 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar bg="primary" variant="dark" expand="md" collapseOnSelect>
+      <Navbar
+        className="py-2"
+        bg="primary"
+        variant="dark"
+        expand="md"
+        collapseOnSelect
+      >
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>
               <img
                 src="/images/logo.jpg"
                 className="d-inline-block align-top"
-                alt="React Bootstrap logo"
-                height="40"
+                alt="Guitar Shop logo"
+                height="60"
               />
             </Navbar.Brand>
           </LinkContainer>
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Offcanvas
-            id={`offcanvasNavbar-expand-md`}
-            aria-labelledby={`offcanvasNavbarLabel-expand-md`}
-            placement="end"
-          >
-            <Offcanvas.Header closeButton>
-              <Offcanvas.Title id={`offcanvasNavbarLabel-expand-md`}>
-                <img
-                  src="/images/logo_inverse.jpg"
-                  className="d-inline-block align-top"
-                  alt="React Bootstrap logo"
-                  height="60"
-                />
-              </Offcanvas.Title>
-            </Offcanvas.Header>
-            <Offcanvas.Body>
-              <Nav className="ms-auto">
-                <LinkContainer to="/cart">
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="ms-auto">
+              {userData ? (
+                <NavDropdown
+                  title={userData.name}
+                  id="username"
+                  className="btn btn-primary"
+                >
+                  <LinkContainer to="/profile">
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : (
+                <LinkContainer to="/login">
                   <Nav.Link>
-                    <FontAwesomeIcon icon={solid('cart-shopping')} />
-                    &nbsp;Cart
+                    <Button variant="outline-light rounded-circle">
+                      <FontAwesomeIcon icon={solid('user')} />
+                    </Button>
                   </Nav.Link>
                 </LinkContainer>
+              )}
 
-                {userData ? (
-                  <NavDropdown title={userData.name} id="username">
-                    <LinkContainer to="/profile">
-                      <NavDropdown.Item>Profile</NavDropdown.Item>
-                    </LinkContainer>
-                    <NavDropdown.Item onClick={logoutHandler}>
-                      Logout
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                ) : (
-                  <LinkContainer to="/login">
-                    <Nav.Link>
-                      <FontAwesomeIcon icon={solid('user')} />
-                      &nbsp;Sign In
-                    </Nav.Link>
-                  </LinkContainer>
-                )}
-              </Nav>
-            </Offcanvas.Body>
-          </Navbar.Offcanvas>
+              <LinkContainer to="/cart">
+                <Nav.Link>
+                  <Button variant="outline-light rounded-circle">
+                    <FontAwesomeIcon icon={solid('cart-shopping')} />
+                  </Button>
+                </Nav.Link>
+              </LinkContainer>
+            </Nav>
+          </Navbar.Collapse>
         </Container>
       </Navbar>
     </header>
